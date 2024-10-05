@@ -1,15 +1,27 @@
-INSERT INTO favorite_books (book_name, section, in_stock, quantity)
-VALUES ('The Great Gatsby', 1, true, 11),
-       ('Huckleberry Finn', 1, true, 4),
-       ('100 Years of Solitude', 3, false, 0),
-       ('Things Fall Apart', 4 , false, 0 ),
-       ('Crime and Punishment', 1, true, 15),
-       ('Moby Dick', 2, true, 11),
-       ('Decameron', 5, false, 0),
-       ('The Wind and the Willows', 2, true, 11),
-       ('Ulysses', 3, true, 8),
-       ('Madame Bovary', 4 , true, 9 ),
-       ('Catcher in the Rye', 1, true, 23),
-       ('Catch-12', 5, true, 18),
-       ('Hamlet', 5, true, 14);
+INSERT INTO department (name)
+VALUES  ('Marketing');
+        ('Legal');
+        ('Accounting');
+        ('Product Management');
+        ('Human Resources');
+
+INSERT INTO role (title, salary, department_id)
+VALUES  ('Director of Marketing', 89984, 1);
+        ('Community Outreach Specialist', 57572, 1);
+        ('Assistant Paralegal', 48805, 2);
+        ('Cost Accountant', 56196, 3);
+        ('Chief Design Engineer', 52170, 4);
+        ('Developer III', 34837, 4);
+        ('HR Representative', 33457, 5);
+        ('HR Director', 57138, 5);
+
+INSERT INTO employee (first_name, last_name, role_id)
+VALUES ('Gardy', 'Tomczynski', 6,null);
+('Alyssa', 'Mathiassen', 8, null);
+('Cyril', 'Chamberlin', 2, 4);
+('Neale', 'Pasmore', 1, null);
+('Elianore', 'Begwell', 7, 2);
+
+
+
        
