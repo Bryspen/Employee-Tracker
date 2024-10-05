@@ -1,6 +1,14 @@
 import express from 'express';
 import { QueryResult } from 'pg';
 import { pool, connectToDb } from './connection.js';
+import inquirer from 'inquirer'
+import {viewAllDepartments,
+        viewAllRoles,
+        addDepartment,
+        addRole,
+        addEmployee,
+        updateEmployeeRole,
+        quit} from './queries.js'
 
 await connectToDb();
 
@@ -11,28 +19,44 @@ const app = express();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-// Query database using COUNT() and GROUP BY
-pool.query('SELECT COUNT(id) AS total_count FROM favorite_books GROUP BY in_stock', (err: Error, result: QueryResult) => {
-  if (err) {
-    console.log(err);
-  } else if (result) {
-    console.log(result.rows);
-  }
-});
+//App Start
+function appStart () {
+    inquirer
+    .prompt ([
+        {
+        type:'list',
+        name:'prompt',
+        message: 'What would you like to do?',
+                            choices: ['View All Departments',
+                                     'View All Roles',
+                                     'View All Employees',
+                                     'Add a Department',
+                                     'Add a Role',
+                                     'Add an Employee',
+                                     'Update an Employee Role',
+                                     'Quit']
+        }
+    ])
+    .then ((answers) => {
+        if (answers.prompt === 'View All Departments'){
+            viewAllDepartments();
+        }
+        else if (answers.prompt === 'View All Roles'){
+            viewAllRoles();
+        }
 
-// Query database using SUM(), MAX(), MIN() AVG() and GROUP BY
-pool.query('SELECT SUM(quantity) AS total_in_section, MAX(quantity) AS max_quantity, MIN(quantity) AS min_quantity, AVG(quantity) AS avg_quantity FROM favorite_books GROUP BY section', (err: Error, result: QueryResult) => {
-  if (err) {
-    console.log(err);
-  } else if (result) {
-    console.log(result.rows);
-  }
-});
+    }
 
-app.use((_req, res) => {
-  res.status(404).end();
-});
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+    }
+
+    appStart()
+// app.use((_req, res) => {
+//   res.status(404).end();
+// });
+//
+// app.listen(PORT, () => {
+//   console.log(`Server running on port ${PORT}`);
+// });
+
+export {appStart}
